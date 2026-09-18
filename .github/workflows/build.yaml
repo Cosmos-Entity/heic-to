@@ -1,0 +1,47 @@
+name: Build patched decoder
+on:
+  pull_request:
+  push:
+    branches: [main, feat/patched-libheif-nexus]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/checkout@v4
+        with:
+          repository: emscripten-core/emsdk
+          ref: 389a68bc35dcff7ebae4614e1615099dafda00d1
+          path: .build/emsdk
+      - name: Install pinned compiler toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y autoconf automake libtool pkg-config cmake
+          .build/emsdk/emsdk install 4.0.15
+          .build/emsdk/emsdk activate 4.0.15
+      - name: Rebuild both decoders from verified source archives
+        run: |
+          source .build/emsdk/emsdk_env.sh
+          timeout 30m scripts/build-decoder.sh
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Verify decoder versions and browser compatibility
+        run: timeout 5m npm test
+      - name: Pack verified distribution
+        run: |
+          mkdir -p artifacts
+          npm pack --ignore-scripts --pack-destination artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-heic-to
+          path: artifacts/*.tgz
+          if-no-files-found: error

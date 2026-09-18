@@ -1,5 +1,10 @@
 # heic-to
 
+Cosmos security fork: CI rebuilds libheif 1.23.4 for the normal and CSP
+variants and publishes verified artifacts as `@cosmos-entity/heic-to`.
+See [build and publication instructions](docs/patched-build.md).
+The upstream release history below describes the original distribution.
+
 Convert HEIC/HEIF images to JPEG, PNG in browser using Javascript.
 
 Inspired by [heic2any](https://github.com/alexcorvi/heic2any) and [libheif-web](https://github.com/joutvhu/libheif-web). The purpose of heic-to is to continuously follow up on releases of [libheif](https://github.com/strukturag/libheif) to be able to preview HEIC/HEIF images in browser.
