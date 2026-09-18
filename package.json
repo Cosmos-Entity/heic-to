@@ -1,6 +1,6 @@
 {
-  "name": "heic-to",
-  "version": "1.5.2",
+  "name": "@cosmos-entity/heic-to",
+  "version": "1.5.2-cosmos.1",
   "description": "Converting HEIF/HEIF image formats to PNG/JPEG in the browser",
   "main": "dist/heic-to.js",
   "exports": {
@@ -22,11 +22,12 @@
   },
   "scripts": {
     "build": "node esbuild.mjs",
-    "s": "npx http-server -o ./example"
+    "s": "npx http-server -o ./example",
+    "test": "node --test --test-timeout=45000 tests/*.test.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hoppergee/heic-to.git"
+    "url": "https://github.com/Cosmos-Entity/heic-to.git"
   },
   "types": "dist/heic-to.d.ts",
   "keywords": [
@@ -45,6 +46,16 @@
   "homepage": "https://github.com/hoppergee/heic-to",
   "devDependencies": {
     "esbuild": "^0.25.4",
-    "http-server": "^14.1.1"
-  }
+    "http-server": "^14.1.1",
+    "playwright": "1.55.1"
+  },
+  "files": [
+    "dist",
+    "src",
+    "provenance",
+    "LICENSE",
+    "README.md",
+    "docs/patched-build.md",
+    "esbuild.mjs"
+  ]
 }

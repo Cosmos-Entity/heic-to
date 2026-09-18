@@ -1,8 +1,13 @@
 import buildLibheif from LIB_HEIF_PATH;
 
-const libheif = buildLibheif()
+// Emscripten factories can return either an initialized module or a Promise.
+// Initialize once, on demand, and await readiness inside each request's error
+// boundary so initialization errors are reported to the calling application.
+let libheifReady;
+const getLibheif = () => libheifReady ??= Promise.resolve().then(buildLibheif);
 
 const decodeBuffer = async (buffer) => {
+  const libheif = await getLibheif();
   let decoder, data;
   try {
     decoder = new libheif.HeifDecoder();

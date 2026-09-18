@@ -30,7 +30,7 @@ await esbuild.build({
 
 const workerFileContent = fs.readFileSync('tmp/worker.js', 'utf8')
 
-esbuild.build({
+await esbuild.build({
   entryPoints: [
     'src/index.js'
   ],
@@ -63,7 +63,7 @@ await esbuild.build({
 
 const workerFileMinifyContent = fs.readFileSync('tmp/worker.min.js', 'utf8')
 
-esbuild.build({
+await esbuild.build({
   entryPoints: [
     'src/index.js'
   ],
@@ -96,7 +96,7 @@ await esbuild.build({
 
 const cspWorkerFileContent = fs.readFileSync('tmp/csp/worker.js', 'utf8')
 
-esbuild.build({
+await esbuild.build({
   entryPoints: [
     'src/index.js'
   ],
@@ -129,7 +129,7 @@ await esbuild.build({
 
 const cspWorkerFileMinifyContent = fs.readFileSync('tmp/csp/worker.min.js', 'utf8')
 
-esbuild.build({
+await esbuild.build({
   entryPoints: [
     'src/index.js'
   ],
@@ -163,7 +163,7 @@ await esbuild.build({
 const iifeWorkerFileMinifyContent = fs.readFileSync('tmp/iife/worker.js', 'utf8')
 
 // Produce an IIFE bundle
-esbuild.build({
+await esbuild.build({
   entryPoints: [
     'src/iife.js'
   ],
@@ -198,7 +198,7 @@ await esbuild.build({
 
 const nextWorkerFileContent = fs.readFileSync('tmp/worker.js', 'utf8')
 
-esbuild.build({
+await esbuild.build({
   entryPoints: [
     'src/next/index.js'
   ],
