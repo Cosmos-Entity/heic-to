@@ -12,7 +12,7 @@ CI pins libheif to commit 4e14f5942c1732ace9611b9522cc991501445463, libde265
 1.0.16 to its SHA256-verified release archive, and emsdk 4.0.15 to commit
 389a68bc35dcff7ebae4614e1615099dafda00d1 (which pins compiler downloads).
 `build-decoder.sh` builds the normal and CSP decoders with `USE_WASM=0`,
-`USE_ES6=1`, and respectively `USE_UNSAFE_EVAL=1/0`. Optional uncompressed,
+`USE_ES6=0` (with an explicit ESM default export), and respectively `USE_UNSAFE_EVAL=1/0`. Optional uncompressed,
 WebCodecs, AOM and OpenJPEG decoders stay disabled. It then bundles all upstream
 entry points. The published package retains LGPL notices and the corresponding
 libheif/libde265 source archives, version manifest and reproduction script in

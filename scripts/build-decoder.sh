@@ -27,11 +27,14 @@ for variant in normal csp; do
     unsafe_eval=0
     output=libheif-without-unsafe-eval.js
   fi
-  LIBDE265_VERSION=1.0.16 USE_WASM=0 USE_ES6=1 USE_TYPESCRIPT=0 \
+  LIBDE265_VERSION=1.0.16 USE_WASM=0 USE_ES6=0 USE_TYPESCRIPT=0 \
     USE_UNSAFE_EVAL="$unsafe_eval" ENABLE_UNCOMPRESSED=0 ENABLE_AOM=0 \
     ENABLE_OPENJPEG=0 ENABLE_WEBCODECS=0 CORES=2 \
     "$source_dir/build-emscripten.sh" "$source_dir"
+  # Keep the upstream synchronous factory. Emscripten's ES6 mode adds an
+  # asynchronous Node import shim; only the export wrapper needs to be ESM.
   cp libheif.js "$root/src/lib/$output"
+  printf '\nexport default libheif;\n' >> "$root/src/lib/$output"
 done
 cat > "$root/provenance/versions.json" <<'JSON'
 {
