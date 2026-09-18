@@ -16,7 +16,7 @@ tar xf libheif.tar.gz -C "$source_dir" --strip-components=1
 cp libheif.tar.gz libde265-1.0.16.tar.gz "$root/provenance/"
 cp "$source_dir/COPYING" "$root/provenance/libheif-COPYING"
 tar xOf libde265-1.0.16.tar.gz libde265-1.0.16/COPYING > "$root/provenance/libde265-COPYING"
-cp "$0" "$root/provenance/build-decoder.sh"
+cp "$root/scripts/build-decoder.sh" "$root/provenance/build-decoder.sh"
 for variant in normal csp; do
   mkdir -p "$root/.build/$variant"
   cd "$root/.build/$variant"
