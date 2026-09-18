@@ -2,8 +2,11 @@ name: Build patched decoder
 on:
   pull_request:
   push:
-    branches: [main, feat/patched-libheif-nexus]
+    branches: [main]
   workflow_dispatch:
+concurrency:
+  group: decoder-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
