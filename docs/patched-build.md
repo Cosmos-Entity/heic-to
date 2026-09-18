@@ -24,6 +24,10 @@ conversion to JPEG/PNG/bitmap, rejection of truncated/invalid files followed by
 successful reuse, and the CSP variant without unsafe-eval. Tests are bounded
 by per-case and process timeouts and use only isolated CI resources. They are
 compatibility checks, not proof against every historical security exploit.
+CI also runs the upstream overlay-amplification and identity-image-size security
+regression executables, each in a separate process with a 30-second timeout.
+The worker awaits Emscripten initialization for both synchronous and Promise
+factories, preserving the public asynchronous conversion API.
 The trusted cosmos-actions vendor publisher verifies the source run/head and
 publishes its exact tarball to Nexus's npm-hosted repository. Consumers read
 through npm-group. Never republish an existing version with different bytes.

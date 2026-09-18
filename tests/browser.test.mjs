@@ -38,8 +38,7 @@ for (const variant of ['normal', 'csp']) {
       const number = await page.evaluate(async variant => {
         const name = variant === 'csp' ? 'libheif-without-unsafe-eval' : 'libheif';
         const { default: factory } = await import(`/src/lib/${name}.js`);
-        const decoder = factory();
-        if (decoder instanceof Promise) throw new Error('Expected synchronous asm.js factory');
+        const decoder = await factory();
         return decoder.heif_get_version_number();
       }, variant);
       assert.equal(number, (1 << 24) | (23 << 16) | (4 << 8));

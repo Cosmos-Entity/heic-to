@@ -23,7 +23,7 @@
   "scripts": {
     "build": "node esbuild.mjs",
     "s": "npx http-server -o ./example",
-    "test": "node --test --test-timeout=45000 tests/browser.test.mjs"
+    "test": "node --test --test-timeout=45000 tests/*.test.mjs"
   },
   "repository": {
     "type": "git",

@@ -31,8 +31,8 @@ for variant in normal csp; do
     USE_UNSAFE_EVAL="$unsafe_eval" ENABLE_UNCOMPRESSED=0 ENABLE_AOM=0 \
     ENABLE_OPENJPEG=0 ENABLE_WEBCODECS=0 CORES=2 \
     "$source_dir/build-emscripten.sh" "$source_dir"
-  # Keep the upstream synchronous factory. Emscripten's ES6 mode adds an
-  # asynchronous Node import shim; only the export wrapper needs to be ESM.
+  # Emscripten's ES6 mode adds a Node import shim that browser bundlers cannot
+  # resolve; only the export wrapper needs to be ESM. Await readiness in worker.
   cp libheif.js "$root/src/lib/$output"
   printf '\nexport default libheif;\n' >> "$root/src/lib/$output"
 done

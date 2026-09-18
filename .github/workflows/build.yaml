@@ -40,6 +40,10 @@ jobs:
         run: |
           source .build/emsdk/emsdk_env.sh
           timeout 30m scripts/build-decoder.sh
+      - name: Run bounded upstream security regressions
+        run: |
+          timeout 30s node .build/normal/tests/overlay_amplification.js
+          timeout 30s node .build/normal/tests/iden_declared_size.js
       - run: npm ci --ignore-scripts
       - run: npm run build
       - run: npx playwright install --with-deps chromium
@@ -54,3 +58,14 @@ jobs:
           name: npm-heic-to
           path: artifacts/*.tgz
           if-no-files-found: error
+      - name: Retain generated decoders for failed-run diagnosis
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: decoder-diagnostics
+          path: |
+            src/lib/*.js
+            .build/libheif/examples/example.heic
+          include-hidden-files: true
+          retention-days: 3
+          if-no-files-found: ignore
